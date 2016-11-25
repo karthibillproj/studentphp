@@ -17,7 +17,16 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO instructors (first_name, last_name, email, qualification) VALUES ('$firstname', '$lastname', '$email', '$qualification')";
+if(isset($_POST['instructorid'])){
+	$studentid = $_POST['studentid'];
+	$sql = "UPDATE instructors SET first_name = '$firstname',last_name = '$lastname',email='$email',qualification='$qualification' WHERE id='$studentid'";
+}else if(isset($_GET['delete'])){
+	$sql = "DELETE FROM instructors WHERE id = ".$_GET['delete'];
+}else{	
+	$sql = "INSERT INTO instructors (first_name, last_name, email, qualification) VALUES ('$firstname', '$lastname', '$email', '$qualification')";
+}
+
+
     if ($conn->query($sql) === TRUE) {
        $result = 'success';
     } else {
@@ -27,7 +36,10 @@ $sql = "INSERT INTO instructors (first_name, last_name, email, qualification) VA
 
 mysqli_close($conn);
 
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+$url = getBaseUrl().'instructors.php';
+
+header('Location: ' . $url);
 
 exit;
 
