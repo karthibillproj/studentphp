@@ -78,7 +78,7 @@
 
 <div class="container">
 
-    <form class="well form-horizontal" action="addinstructorpost.php" method="post"  id="addinstructor">
+    <form class="well form-horizontal" action="addinstructorpost.php" enctype="multipart/form-data" method="post"  id="addinstructor">
 <fieldset>
 
 <!-- Form Name -->
@@ -138,11 +138,11 @@
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="course" class="form-control selectpicker" >
+    <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option>Maths</option>
-      <option>Science</option>
-      <option >English</option>
+      <option value="1">Maths</option>
+      <option value="2">Science</option>
+      <option value="3">English</option>
     </select>
   </div>
 </div>

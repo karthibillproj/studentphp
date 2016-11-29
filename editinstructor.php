@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
   ?>
 
-    <form class="well form-horizontal" action="addinstructorpost.php" method="post"  id="addinstructor">
+    <form class="well form-horizontal" action="addinstructorpost.php" enctype="multipart/form-data" method="post"  id="addinstructor">
 <fieldset>
 
 <!-- Form Name -->
@@ -153,11 +153,11 @@ if ($result->num_rows > 0) {
 
 <!-- Text input-->
  <div class="form-group">
-  <label class="col-md-4 control-label">Date of birth</label>  
+  <label class="col-md-4 control-label">Qualification</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-  		<input name="dob" placeholder="DD/MM/YYYY" class="form-control"  type="text" value="<?php echo $row['qualification']; ?>">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+      <input name="qualification" placeholder="Qualification" class="form-control"  type="text" value="<?php echo $row['qualification']; ?>">
     </div>
   </div>
 </div>
@@ -170,11 +170,11 @@ if ($result->num_rows > 0) {
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="course" class="form-control selectpicker" >
+    <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option>Maths</option>
-      <option>Science</option>
-      <option >English</option>
+      <option value="1">Maths</option>
+      <option value="2">Science</option>
+      <option value="3">English</option>
     </select>
   </div>
 </div>

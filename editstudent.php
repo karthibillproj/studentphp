@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
   ?>
 
-    <form class="well form-horizontal" action="addstudentpost.php" method="post"  id="addstudent">
+    <form class="well form-horizontal" action="addstudentpost.php" enctype="multipart/form-data" method="post"  id="addstudent">
 <fieldset>
 
 <!-- Form Name -->
@@ -170,11 +170,11 @@ if ($result->num_rows > 0) {
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="course" class="form-control selectpicker" >
+    <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option>Maths</option>
-      <option>Science</option>
-      <option >English</option>
+      <option value="1">Maths</option>
+      <option value="2">Science</option>
+      <option value="3">English</option>
     </select>
   </div>
 </div>
