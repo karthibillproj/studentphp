@@ -1,3 +1,7 @@
+<?php 
+
+include_once('getcourse.php'); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,9 +167,12 @@
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option value="1">Maths</option>
+      <?php foreach($coursedata as $key=>$value){ ?>
+          <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+      <?php  } ?>
+     <!-- <option value="1">Maths</option>
       <option value="2">Science</option>
-      <option value="3">English</option>
+      <option value="3">English</option> -->
     </select>
   </div>
 </div>

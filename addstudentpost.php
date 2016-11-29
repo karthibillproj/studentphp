@@ -22,7 +22,20 @@ if(isset($_POST['studentid'])){
 	$studentid = $_POST['studentid'];
 	$sql = "UPDATE students SET first_name = '$firstname',last_name = '$lastname',email='$email',dob='$dob' WHERE id='$studentid'";
 	 if ($conn->query($sql) === TRUE) {
-       $deletesql = "DELETE FROM student_courses WHERE student_id ='$studentid'";
+	 	foreach($courses as $course){
+	   		if(!empty(trim($course))){
+	        $query_parts[] = $course;
+	    	}
+	    }
+		$queryvalue = mysql_real_escape_string(implode(',', $query_parts)); 
+		$query = "UPDATE student_courses SET course_id = '$queryvalue' WHERE student_id = '$studentid'";
+		if ($conn->query($query) === TRUE) {
+	      $result = 'success';
+	   } else {
+	      $result = $conn->error;
+	   }
+
+      /* $deletesql = "DELETE FROM student_courses WHERE student_id ='$studentid'";
        $conn->query($deletesql);
        $query = 'INSERT INTO student_courses (`student_id`, `course_id`) VALUES ';
 	   $query_parts = array();
@@ -36,7 +49,7 @@ if(isset($_POST['studentid'])){
 	      $result = 'success';
 	   } else {
 	      $result = $conn->error;
-	   }
+	   } */
     } else {
         $result = $conn->error;
     }
@@ -51,10 +64,28 @@ if(isset($_POST['studentid'])){
         $result = $conn->error;
     }
 }else{	
+
 	$sql = "INSERT INTO students (first_name, last_name, email, dob) VALUES ('$firstname', '$lastname', '$email', '$dob')";
 	  if ($conn->query($sql) === TRUE) {
        $last_id = $conn->insert_id;
-       $query = 'INSERT INTO student_courses (`student_id`, `course_id`) VALUES ';
+
+        $query_parts = array();
+	   foreach($courses as $course){
+	   		if(!empty(trim($course))){
+	        $query_parts[] = $course;
+	    	}
+	   }
+		$queryvalue = mysql_real_escape_string(implode(',', $query_parts)); 
+    
+	   $query = "INSERT INTO student_courses (`student_id`, `course_id`) VALUES ('$last_id', '".$queryvalue."')";
+	   if ($conn->query($query) === TRUE) {
+	      $result = 'success';
+	   } else {
+	      $result = $conn->error;
+	   } 
+
+
+      /* $query = 'INSERT INTO student_courses (`student_id`, `course_id`) VALUES ';
 	   $query_parts = array();
 	   foreach($courses as $course){
 	   		if(!empty(trim($course))){
@@ -66,7 +97,9 @@ if(isset($_POST['studentid'])){
 	      $result = 'success';
 	   } else {
 	      $result = $conn->error;
-	   }
+	   } */
+
+
     } else {
         $result = $conn->error;
     }
