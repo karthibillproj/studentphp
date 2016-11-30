@@ -14,7 +14,7 @@ include_once('database.php');
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Edit Student</title>
+   <title>Edit Course</title>
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
@@ -79,6 +79,7 @@ if ($result->num_rows > 0) {
   ?>
 
  <form class="well form-horizontal" action="addcoursepost.php" method="post"  id="addcourse">
+  <a href="courses.php" class="pull-right">View Courses</a>
 <fieldset>
 
 <!-- Form Name -->

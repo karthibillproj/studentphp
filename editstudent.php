@@ -114,7 +114,7 @@ if ($result->num_rows > 0) {
 <fieldset>
 
 <!-- Form Name -->
-<legend>Add student</legend>
+<legend>Edit student</legend>
 
 <!-- Text input-->
 

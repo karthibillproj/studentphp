@@ -50,6 +50,7 @@
 <div class="container">
 
     <form class="well form-horizontal" action="addcoursepost.php" method="post"  id="addcourse">
+    <a href="courses.php" class="pull-right">View Courses</a>
 <fieldset>
 
 <!-- Form Name -->
