@@ -1,5 +1,5 @@
 <?php 
- 
+include_once('getcourse.php'); 
  if(isset($_GET['id']))
  {
     $id = $_GET['id'];
@@ -100,7 +100,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM students where id = ".$id;
+//$sql = "SELECT * FROM students where id = ".$id;
+ $sql = "SELECT students.id id, students.first_name first_name, students.last_name last_name, students.email email, students.dob dob, student_courses.course_id course_id  FROM students LEFT JOIN student_courses on students.id = student_courses.student_id where students.id = ".$id; 
 
 $result = $conn->query($sql);
 
@@ -109,6 +110,7 @@ if ($result->num_rows > 0) {
   ?>
 
     <form class="well form-horizontal" action="addstudentpost.php" enctype="multipart/form-data" method="post"  id="addstudent">
+    <a href="students.php" class="pull-right">View Students</a>
 <fieldset>
 
 <!-- Form Name -->
@@ -172,9 +174,16 @@ if ($result->num_rows > 0) {
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option value="1">Maths</option>
+        <?php $courses = explode(",", $row['course_id']);
+        foreach($coursedata as $key=>$value){ 
+          if(in_array($key, $courses)){ ?>
+            <option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
+          <?php }else { ?>
+          <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+      <?php  }} ?>
+     <!-- <option value="1">Maths</option>
       <option value="2">Science</option>
-      <option value="3">English</option>
+      <option value="3">English</option> -->
     </select>
   </div>
 </div>

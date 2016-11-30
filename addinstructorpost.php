@@ -21,7 +21,31 @@ if(isset($_POST['instructorid'])){
 	$instructorid = $_POST['instructorid'];
 	$sql = "UPDATE instructors SET first_name = '$firstname',last_name = '$lastname',email='$email',qualification='$qualification' WHERE id='$instructorid'";
      if ($conn->query($sql) === TRUE) {
-       $deletesql = "DELETE FROM instructor_courses WHERE instructor_id ='$instructorid'";
+        foreach($courses as $course){
+            if(!empty(trim($course))){
+            $query_parts[] = $course;
+            }
+        }
+        $queryvalue = mysql_real_escape_string(implode(',', $query_parts)); 
+        $selectquery = "SELECT * FROM instructor_courses where instructor_id = ".$instructorid;
+        $result = $conn->query($selectquery);
+        if ($result->num_rows > 0) { 
+            $query = "UPDATE instructor_courses SET course_id = '$queryvalue' WHERE instructor_id = '$instructorid'"; 
+            if ($conn->query($query) === TRUE) {
+              $result = 'success';
+           } else {
+              $result = $conn->error;
+           }
+        }else{
+             $query = "INSERT INTO instructor_courses (`instructor_id`, `course_id`) VALUES ('$instructorid', '".$queryvalue."')";
+             if ($conn->query($query) === TRUE) {
+                  $result = 'success';
+               } else {
+                  $result = $conn->error;
+               } 
+        }
+
+      /* $deletesql = "DELETE FROM instructor_courses WHERE instructor_id ='$instructorid'";
        $conn->query($deletesql);
        $query = 'INSERT INTO instructor_courses (`instructor_id`, `course_id`) VALUES ';
        $query_parts = array();
@@ -35,7 +59,8 @@ if(isset($_POST['instructorid'])){
           $result = 'success';
        } else {
           $result = $conn->error;
-       }
+       } */
+
     } else {
         $result = $conn->error;
     }
@@ -53,7 +78,25 @@ if(isset($_POST['instructorid'])){
 	$sql = "INSERT INTO instructors (first_name, last_name, email, qualification) VALUES ('$firstname', '$lastname', '$email', '$qualification')";
     if ($conn->query($sql) === TRUE) {
        $last_id = $conn->insert_id;
-       $query = 'INSERT INTO instructor_courses (`instructor_id`, `course_id`) VALUES ';
+
+
+        $query_parts = array();
+       foreach($courses as $course){
+            if(!empty(trim($course))){
+            $query_parts[] = $course;
+            }
+       }
+        $queryvalue = mysql_real_escape_string(implode(',', $query_parts)); 
+    
+       $query = "INSERT INTO instructor_courses (`instructor_id`, `course_id`) VALUES ('$last_id', '".$queryvalue."')";
+       if ($conn->query($query) === TRUE) {
+          $result = 'success';
+       } else {
+          $result = $conn->error;
+       } 
+
+       
+      /* $query = 'INSERT INTO instructor_courses (`instructor_id`, `course_id`) VALUES ';
        $query_parts = array();
        foreach($courses as $course){
             if(!empty(trim($course))){
@@ -65,7 +108,7 @@ if(isset($_POST['instructorid'])){
           $result = 'success';
        } else {
           $result = $conn->error;
-       }
+       } */
     } else {
         $result = $conn->error;
     }

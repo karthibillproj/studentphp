@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2016 at 04:27 AM
+-- Generation Time: Nov 30, 2016 at 05:59 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.23
 
@@ -62,8 +62,7 @@ INSERT INTO `instructors` (`id`, `first_name`, `last_name`, `email`, `qualificat
 (1, 'first', 'lasssins', 'karthibill@gmail.com', 'bsc'),
 (2, 'sss', 'ddss', 'sdd@gmail.com', 'ddds'),
 (3, 'ss', 'ddss', 'sdd@gmail.com', 'nnbs'),
-(4, 'ss', 'ddss', 'sdd@gmail.com', 'nnbss'),
-(9, 'ssd', 'dds', 'ssd@gmail.com', 'bbs');
+(4, 'ss', 'ddss', 'sdd@gmail.com', 'nnbss');
 
 -- --------------------------------------------------------
 
@@ -74,7 +73,7 @@ INSERT INTO `instructors` (`id`, `first_name`, `last_name`, `email`, `qualificat
 CREATE TABLE `instructor_courses` (
   `id` int(11) NOT NULL,
   `instructor_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `course_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -82,7 +81,8 @@ CREATE TABLE `instructor_courses` (
 --
 
 INSERT INTO `instructor_courses` (`id`, `instructor_id`, `course_id`) VALUES
-(23, 9, 1);
+(26, 2, '1,3'),
+(27, 3, '3');
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,8 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `dob`) VALUES
 (1, 'first', 'lasts', 'test@gmail.com', '23/06/1989'),
 (4, 'firrrr', 'lassss', 'karthickneev@gmail.com', '23/06/1989'),
 (5, 'sddd', 'sdkdk', 'ksss@gmail.com', '23/02/1999'),
-(7, 'ddd', 'sss', 'were@gmail.com', '22/03/2009');
+(14, 'firsss', 'ssd', 'wee@gmail.com', '19/07/1999'),
+(15, 'sssd', 'ssd', 'sdds@gmail.com', '10/09/2015');
 
 -- --------------------------------------------------------
 
@@ -117,7 +118,7 @@ INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `dob`) VALUES
 CREATE TABLE `student_courses` (
   `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `course_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -125,8 +126,9 @@ CREATE TABLE `student_courses` (
 --
 
 INSERT INTO `student_courses` (`id`, `student_id`, `course_id`) VALUES
-(18, 7, 1),
-(19, 7, 3);
+(26, 14, '1,2,3'),
+(27, 15, '1,3'),
+(28, 1, '1');
 
 --
 -- Indexes for dumped tables
@@ -175,22 +177,22 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `instructor_courses`
 --
 ALTER TABLE `instructor_courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `student_courses`
 --
 ALTER TABLE `student_courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

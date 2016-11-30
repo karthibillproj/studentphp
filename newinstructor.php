@@ -83,6 +83,7 @@ include_once('getcourse.php'); ?>
 <div class="container">
 
     <form class="well form-horizontal" action="addinstructorpost.php" enctype="multipart/form-data" method="post"  id="addinstructor">
+    <a href="instructors.php" class="pull-right">View Instructors</a>
 <fieldset>
 
 <!-- Form Name -->

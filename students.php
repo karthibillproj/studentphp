@@ -17,6 +17,7 @@ include_once('database.php');
 <body>
 <div class="container">
 <h3>Students</h3>
+<a href="newstudent.php" class="pull-right">New Student</a>
 <?php 
 
 $conn = new mysqli($servername, $username, $password, $dbname);

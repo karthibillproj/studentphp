@@ -106,10 +106,13 @@ include_once('getcourse.php'); ?>
 <div class="container">
 
     <form class="well form-horizontal"  action="addstudentpost.php" method="post" enctype="multipart/form-data" id="addstudent">
+    <a href="students.php" class="pull-right">View Students</a>
 <fieldset>
 
 <!-- Form Name -->
+
 <legend>Add student</legend>
+
 
 <!-- Text input-->
 

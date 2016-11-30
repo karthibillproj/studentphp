@@ -1,5 +1,5 @@
 <?php 
- 
+ include_once('getcourse.php'); 
  if(isset($_GET['id']))
  {
     $id = $_GET['id'];
@@ -14,7 +14,7 @@ include_once('database.php');
 <!DOCTYPE html>
 <html>
 <head>
-   <title>Edit Student</title>
+   <title>Edit Instructor</title>
    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.css" rel="stylesheet">
    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
@@ -100,7 +100,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM instructors where id = ".$id;
+//$sql = "SELECT * FROM instructors where id = ".$id;
+  $sql = "SELECT instructors.id id, instructors.first_name first_name, instructors.last_name last_name, instructors.email email, instructors.qualification qualification, instructor_courses.course_id course_id  FROM instructors LEFT JOIN instructor_courses on instructors.id = instructor_courses.instructor_id where instructors.id = ".$id;  
 
 $result = $conn->query($sql);
 
@@ -109,10 +110,11 @@ if ($result->num_rows > 0) {
   ?>
 
     <form class="well form-horizontal" action="addinstructorpost.php" enctype="multipart/form-data" method="post"  id="addinstructor">
+    <a href="instructors.php" class="pull-right">View Instructors</a>
 <fieldset>
 
 <!-- Form Name -->
-<legend>Add student</legend>
+<legend>Edit Instructor</legend>
 
 <!-- Text input-->
 
@@ -172,9 +174,13 @@ if ($result->num_rows > 0) {
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="course[]" class="form-control selectpicker" multiple="multiple">
       <option value=" " >Please select your Course</option>
-      <option value="1">Maths</option>
-      <option value="2">Science</option>
-      <option value="3">English</option>
+       <?php $courses = explode(",", $row['course_id']);
+        foreach($coursedata as $key=>$value){ 
+          if(in_array($key, $courses)){ ?>
+            <option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
+          <?php }else { ?>
+          <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+      <?php  }} ?>
     </select>
   </div>
 </div>

@@ -28,12 +28,23 @@ if(isset($_POST['studentid'])){
 	    	}
 	    }
 		$queryvalue = mysql_real_escape_string(implode(',', $query_parts)); 
-		$query = "UPDATE student_courses SET course_id = '$queryvalue' WHERE student_id = '$studentid'";
-		if ($conn->query($query) === TRUE) {
-	      $result = 'success';
-	   } else {
-	      $result = $conn->error;
-	   }
+		$selectquery = "SELECT * FROM student_courses where student_id = ".$studentid;
+		$result = $conn->query($selectquery);
+		if ($result->num_rows > 0) { 
+			$query = "UPDATE student_courses SET course_id = '$queryvalue' WHERE student_id = '$studentid'";
+			if ($conn->query($query) === TRUE) {
+		      $result = 'success';
+		   } else {
+		      $result = $conn->error;
+		   }
+		}else{
+			 $query = "INSERT INTO student_courses (`student_id`, `course_id`) VALUES ('$studentid', '".$queryvalue."')";
+			   if ($conn->query($query) === TRUE) {
+			      $result = 'success';
+			   } else {
+			      $result = $conn->error;
+			   }
+		}
 
       /* $deletesql = "DELETE FROM student_courses WHERE student_id ='$studentid'";
        $conn->query($deletesql);
